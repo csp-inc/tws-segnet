@@ -1,0 +1,11 @@
+fit_models
+logs
+images 
+bin/out
+bin/temp
+*.zip
+*.kmz
+*.pyc
+*.png
+*.tif
+__pycache__
