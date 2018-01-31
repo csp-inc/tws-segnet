@@ -57,5 +57,6 @@ Current results are ~~*_mixed_*~~, *good*.
 
 ### Next steps:
 
-- Attempt to optimize pix2pix model with more robust training data set of more tiles. 
+- ~~Attempt to optimize pix2pix model with more robust training data set of more tiles.~~
 - If unable to produce highly accurate classified road maps, use a threshold measure of pix2pix model predicted road pixels to indicate level of *_potential_* human road impact within an aggregated 1km area. After combine with auxiliary data that may include urban sprawl, agriculture, energy development, and transportation layers.  
+- Semantic segmentation with Autoencoder-Decoder shows high success rate. Accuracy assessment and model outputs to be posted soon. 
