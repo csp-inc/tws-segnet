@@ -28,7 +28,7 @@ After extensive testing with the pix2pix architecture, it was found that there w
 [pix2pix-repository](https://github.com/affinelayer/pix2pix-tensorflow)**
 
 **Repository of SegNet model:
-[segnet-repository](https://github.com/0bserver07/Keras-SegNet-Basic)
+[segnet-repository](https://github.com/0bserver07/Keras-SegNet-Basic)**
 
 ### Pilot training and testing: 
 Early steps were performed to verify if model could be utilized to predict road features on a complex urban landscape containing numerous feature classes that include buildings, green areas, and various road types. This is demonstrated below with a training model using 3000 images over 3084 epochs (training cycle iterations of random sampling with replacement/image augmentation).
