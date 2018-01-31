@@ -1,0 +1,19 @@
+stridex: 192
+stridey: 192
+windowsizex: 256
+windowsizey: 256
+resample: false 
+resamplesizex: 300
+resamplesizey: 300
+window_bands: 
+- 0
+- 1
+- 2
+  #- 3
+needfiles: true
+orig_image_shape: true
+fileprefix: ""
+model_input_dir: "" # include a trailing slash!
+model_output_dir: "" # include a trailin slash!
+chop_last_row: 0
+chop_last_col: 0
