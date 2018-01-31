@@ -3,6 +3,7 @@ logs
 images 
 bin/out
 bin/temp
+outputs
 *.zip
 *.kmz
 *.pyc
