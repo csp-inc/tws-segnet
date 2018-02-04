@@ -1,4 +1,6 @@
 import numpy as np
+from src.image_tools import change_color_dir,\
+        file_matcher, composite_imgs
 from PIL import Image
 from glob import glob
 import gdal
@@ -57,6 +59,31 @@ def move_data(data_list, outdir):
         #b.save('/contents/images/train/b/%s'%os.path.basename(y))
     return()
 
+def make_overlays(img_dirc="/contents/images/train"): 
+    a_dir = "%s/a"%img_dirc
+    b_dir = "%s/b"%img_dirc
+    bb_dir = "%s/bb"%img_dirc
+    ab_dir = "%s/ab"%img_dirc
+    if not os.path.exists(ab_dir):
+        os.makedirs(ab_dir)
+    if not os.path.exists(bb_dir):
+        os.makedirs(bb_dir)
+
+    #need to change color first
+    change_color_dir(b_dir, bb_dir, c1=(0,0,0,0), c2=(255,0,0,0))
+    composite_imgs(a_dir, bb_dir, ab_dir, 0.65)
+    return()
+
+def match_data_dircs(input_dir="./images/train"): 
+    # for the a files 
+    src_d = "%s/ab"%input_dir 
+    to_match = "%s/a"%input_dir 
+    file_matcher(src_d, to_match) 
+    # for the b files 
+    to_match = "%s/b"%input_dir 
+    file_matcher(src_d, to_match) 
+    return()
+
 def get_data(img_dirc):
     '''
     Input directory of images 
@@ -80,7 +107,8 @@ def get_data(img_dirc):
 def get_xy_data(img_dirc, batch_size=None):
     '''
     Input directory of images 
-    <x_datafilename> <y_datafilename>
+    x_datafilename <str>,
+    y_datafilename <str>,
     Will convert the image files to RGB 
     (removes Alpha channel), and changes
     to Numpy array type.
