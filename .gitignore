@@ -4,6 +4,7 @@ images
 bin/out
 bin/temp
 outputs
+.ipynb_checkpoints
 *.zip
 *.kmz
 *.pyc
