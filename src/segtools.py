@@ -41,7 +41,6 @@ def move_data(data_list, outdir):
     -----------
     data_list : str of text file of x and y images
     '''
-
     F = open(data_list,'r')
     x_raw = []
     y_raw = []
@@ -60,6 +59,15 @@ def move_data(data_list, outdir):
     return()
 
 def make_overlays(img_dirc="/contents/images/train"): 
+    '''
+    Generates transparent overlay of `b` over `a` files, 
+    for QA/QC of data in a new directory `ab`
+    
+    Parameters:
+    -----------
+    <str> of directory with structure `a` and `b` directories
+    where `a` is imagery and `b` is road labeled images
+    '''
     a_dir = "%s/a"%img_dirc
     b_dir = "%s/b"%img_dirc
     bb_dir = "%s/bb"%img_dirc
@@ -72,9 +80,19 @@ def make_overlays(img_dirc="/contents/images/train"):
     #need to change color first
     change_color_dir(b_dir, bb_dir, c1=(0,0,0,0), c2=(255,0,0,0))
     composite_imgs(a_dir, bb_dir, ab_dir, 0.65)
+    os.removedirs(bb_dir)
     return()
 
 def match_data_dircs(input_dir="./images/train"): 
+    '''
+    Preprocessing function to match an `ab` overlay directory
+    to directories `a` and `b`.
+
+    Parameters:
+    -----------
+    <str> name of directory with structure `a`, `b`, and `ab`.
+    `ab` serves as reference diretory to match.
+    '''
     # for the a files 
     src_d = "%s/ab"%input_dir 
     to_match = "%s/a"%input_dir 
