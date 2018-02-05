@@ -218,6 +218,49 @@ def pre_process_y(y, n_classes):
     out = out.astype('uint8')
     return(out)
 
+def post_process_y(y, n_classes, thr=None):
+    '''
+    Takes pre-processed y data and returns it to 
+    image format, and provides both one-hot vectorization
+    and argmax classification
+
+    Parameters:
+    -----------
+    y : 3d numpy array;
+        first dimension is the number of samples
+        second dimension is the number of pixels 
+        third dimension is the number of channels
+    
+    num_classes : int; 
+        specification of number of unique classes
+
+    thr : float; Default = None
+        threshold value for distinguishing road/non-road
+        binary classification (y_hat). Default value
+        uses the argmax of the continuous classifications
+    '''
+    # assuming the image is square
+    dims = int(np.sqrt(y.shape[1]))
+    y_pr = np.reshape(y,(y.shape[0], dims, dims, n_classes))
+    if thr is not None:
+        y_classified = np.zeros(np.shape(y_pr)[:-1])
+        y_classified[y_pr[:,:,:,0]>=thr]=1
+    else: 
+        y_classified = np.argmin(y_pr, axis=3)
+    return(y_classified, y_pr)
+
+def accuracy_summaries(y, y_hat):
+    def safe_div(x,y):
+        if y==0: return 0
+        return(x/y)
+    model_acc_classes = ((2*y_hat)-y)+1
+    counts = [np.sum(model_acc_classes==i) for i in range(4)]
+    # {'FN' : 0,'TN': 1, 'TP': 2, 'FP': 3}
+    precision = safe_div(counts[2],(counts[2]+counts[3]))
+    recall = safe_div(counts[2],(counts[2]+counts[0]))
+    f1_score = 2 * safe_div((precision*recall),(precision+recall))
+    return(model_acc_classes, precision, recall, f1_score)
+
 def data_generator(img_dirc, augment_img=False, batch_size=None, weights_out=False):
     '''
     Input directory of images 
