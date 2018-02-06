@@ -14,8 +14,8 @@ classifier: false
 needfiles: true
 orig_image_shape: true
 fileprefix: ""
-file_input_dir: "/contents/predictions/test" # doesn't need a trailing slash
-model_input_dir: "/contents/predictions/test/" # include a trailing slash!
-model_output_dir: "/contents/predictions/test/" # include a trailing slash!
+file_input_dir: "/contents/predictions/images" # doesn't need a trailing slash
+model_input_dir: "/contents/predictions/test/a/" # include a trailing slash!
+model_output_dir: "/contents/predictions/test/b/" # include a trailing slash!
 chop_last_row: 1
 chop_last_col: 1

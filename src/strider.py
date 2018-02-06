@@ -6,11 +6,10 @@ import os
 import yaml
 from PIL import Image as pimg
 
-with open('/contents/bin/parameters.yaml') as p_yaml:
+with open('/contents/src/parameters.yaml') as p_yaml:
     params = yaml.safe_load(p_yaml)
 params['window_bands'] = np.array(params['window_bands'])
 
-print(params)
 class Window:
     def __init__(self, parent, xindex: int, x: int, yindex: int, y: int, array: np.ndarray = None):
         self.parent = parent

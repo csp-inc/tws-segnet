@@ -1,25 +1,24 @@
-![csp](https://lh5.googleusercontent.com/5vNxesq_-1lSHwsOt512XSEmWpu736n9QG0QK30vcxTg9tjn_IW-ipm_sR2rtlwu0EZBPYTyvaooyV6kUh9i=w950-h979) 
+![csp](http://www.csp-inc.org/wp-content/uploads/2017/04/csp-logo1.png) 
 # The Wilderness Society - Linear features identification  
 
 ### Author: Tony Chang 
 ### Institution: Conservation Science Partners
 ### Project title: Aerial Detection of Human Modification using Convolutional Neural Networks in the BLM Wilderness areas. 
-##### Abstract: The goal of this project is to identify road features within BLM areas from aerial based imagery to optimize efforts for determination of human modified regions and untracked land. In this initial scoping, we explore the usage of a selection of Convolutional Neural Network solutions including Generative Adversarial Networks (GAN), a recent innovation in the field of Deep Learning, that is capable of "style transfer"; and Semantic Segmentation (encoder-decoder) Networks. We propose to implement Pix2Pix a recently released version of this GAN methodology for application in road feature identification. Current results are preliminary and display both promise and deficiencies in successful model training. 
+##### Abstract: The goal of this project is to identify road features within BLM areas from aerial based imagery to optimize efforts for determination of human modified regions and untracked land. In this initial scoping, we explore the usage of Convolutional Neural Networks for the task of semantic segmentation. We propose to implement an autoencoder-decoder network architecture for application in road feature identification, with specific targets of unpaved road features.
 
 ### Method:
 1. Acquire tiled images of remote sensed imagery and matching stylized vector tile.
-2. Use paired images as training data for ~~Pix2Pix GAN model.~~ semantic segmentation using a UNet architecture.
-3. Optimize training and architecture to reduce cross-entropy loss function for classification of road features ~~both Generator and Discriminator~~ segmentation networks.
+2. Use paired images as training data for semantic segmentation using a UNet architecture.
+3. Optimize training and architecture to reduce cross-entropy loss function for classification of road features segmentation.
 4. Initial validation through first order visual analysis.
-5. Model convergence metrics from Tensorboard and confusion matrix.  
-6. Future accuracy assessment using Jaccard Similarity/Index 
+5. Model convergence metrics of both training and validation dataset, and confusion matrix to assess precision and recall.  
+6. Test data accuracy assessment.   
 
 ### Introduction:
-We implemented the ~~pix2pix conditional adversarial~~ autoencoder-decoder networks as a general-purpose solution to image-to-image translation problems for our case of road feature translation ~~[Isola et al 2016](https://arxiv.org/pdf/1611.07004v1.pdf)~~ [Badrinarayanan et al 2015](https://arxiv.org/pdf/1511.00561.pdf)
-This genre of machine learning has displayed early success in urban center satellite image translation to OpenStreetMaps style (photo -> map). Although trials of pix2pix outputs on perceptual validation (human test subjects) were only successful at fooling individuals 6.1% of the time; our goals are not to fool human subjects, but to determine regions within the landscape which could be classified as containing human modified features such as roads. Our intuition of this application is to fit a GAN model that can be used to predict potential road class pixels across numerous high resolution images and reduce specialist time/effort of manual scanning. 
+We implemented an autoencoder-decoder networks as a general-purpose solution to identify unpaved road features in the BLM Tonopah field office region. [Badrinarayanan et al 2015](https://arxiv.org/pdf/1511.00561.pdf) used this genre of machine learning has displayed early success in urban center satellite image translation to OpenStreetMaps style (photo -> map). 
 
 Update: January 2018
-After extensive testing with the pix2pix architecture, it was found that there was high difficulty getting the model to converge and problems with 'Mode Collapse' which is common among GANs. This GAN effort was thus abandoned and focus was shifted towards an Autoencoder-Decoder network such as SegNet to provide semantic segmentation of road features. 
+After extensive testing with the pix2pix architecture (generative adversarial networks), it was found that there was high difficulty getting the model to converge and problems with 'Mode Collapse' which is common among GANs. This GAN effort was thus abandoned and focus was shifted towards an Autoencoder-Decoder network such as SegNet to provide semantic segmentation of road features. 
 
 **Overview of algorithm design and mechanics:
 [pix2pix-method-document](https://affinelayer.com/pix2pix/)**
