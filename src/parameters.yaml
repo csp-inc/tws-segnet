@@ -1,5 +1,5 @@
-stridex: 256
-stridey: 256
+stridex: 200
+stridey: 200
 windowsizex: 256
 windowsizey: 256
 resample: false

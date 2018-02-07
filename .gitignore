@@ -10,4 +10,5 @@ outputs
 *.pyc
 *.png
 *.tif
+*.swp
 __pycache__
