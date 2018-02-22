@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>Nevada</title>
+        <meta name='veiwport' content='initial-scale=1, maximum-scale=1, user-scalable=no' />
+        <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet'/>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Helvetica Neue", Helvetica, Arial, Sans-serif;
+                }
+            #map {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                }
+            h1 {
+                font-size: 20px;
+                line-height: 30px;
+                }
+            h2 {
+                font-size: 14px;
+                line-height: 20px;
+                margin-bottom: 10px;
+                }
+            a {
+                text-decoration: none;
+                color: #2dc4b2;
+            }
+            #console {
+                position: absolute;
+                width: 240px;
+                margin: 10px;
+                padding: 10px 20px;
+                background-color: white;
+            }
+        </style>
+    </head> 
+
+    <body>
+        <div id='map'></div>
+        <div id='console'>
+            <h1> Test title </h1>
+            <p>Data: <a href='http://www.csp-inc.org/'>CSP</a></p>
+        </div>
+        <script>
+            //initialize the access token
+            mapboxgl.accessToken = 'pk.eyJ1IjoidG9ueWNoYW5nIiwiYSI6ImNqN2M3ZWwzazAwM2UycWw1YmdjNGg4bWwifQ.2qAZcjmqvbm9k8TaTlHIzw';
+        </script>
+        <script> 
+            var map = new mapboxgl.Map({
+                container: 'map', // container element id
+            /*
+                style: {
+                    'sources':{
+                        'source-tiles': {
+                            'type': 'raster',
+                            'tiles': [
+*/
+                style: 'mapbox://styles/mapbox/satellite-streets-v9',
+                center: [-115.90737, 38], // initial map center in [lon, lat]
+                zoom: 9, 
+                /*
+                'layers': [{
+                    'id': 'Road Probability', 
+                    'type': 'raster', 
+                    'source': 'raster-tiles'
+                }]
+                */
+            });
+        //load layers on load
+        map.on('load', function() {
+            map.addLayer({
+                'id': 'road-label',
+                'type': 'raster',
+                'scheme': 'tms',
+                'source': {
+                    'type': 'raster',
+                    'tiles': [
+                        'http://storage.googleapis.com/tws-tonopah-data/tiles/{z}/{x}/{y}.png'
+//                        "http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        ],
+ //                       'opacity': 0.7,
+                        'minzoom': 6,
+                        'maxzoom': 17,
+  //                      'tileSize': 256
+                    }
+            });
+        });
+        
+        map.addControl(new mapboxgl.NavigationControl());
+        </script>
+    </body>
+</html>
+
