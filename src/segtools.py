@@ -391,8 +391,8 @@ def export_tif(image, ref_tif, outname, alpha_mask=None, dtype=gdal.GDT_Byte):
 
     gt = ref_tif.GetGeoTransform()
     proj = ref_tif.GetProjection()
-    xsize = ref_tif.RasterXSize
-    ysize = ref_tif.RasterYSize
+    xsize = np.shape(image)[1] 
+    ysize = np.shape(image)[0] 
 
     driver = gdal.GetDriverByName('GTiff')
     if alpha_mask is None:
@@ -402,12 +402,12 @@ def export_tif(image, ref_tif, outname, alpha_mask=None, dtype=gdal.GDT_Byte):
     out = driver.Create(outname, xsize, ysize, bands, dtype)
     out.SetGeoTransform(gt)
     out.SetProjection(proj)
-    out.GetRasterBand(1).WriteArray(image) #if we want a red image for a 4 channel
-    if bands==4: #clunky change this!
-        out.GetRasterBand(2).WriteArray(np.zeros(np.shape(image))) 
-        out.GetRasterBand(3).WriteArray(np.zeros(np.shape(image)))
-        out.GetRasterBand(4).WriteArray(alpha_mask)
-    return('created %s'%(outname))
+    if bands==1: #clunky change this!
+        out.GetRasterBand(1).WriteArray(image) #if we want a red image for a 4 channel
+    else:
+        for i in range(4):
+            out.GetRasterBand(i+1).WriteArray(image[:,:,i]) #if we want a red image for a 4 channel
+    return(print('created %s'%(outname)))
 
 def extend_border_mask(border_mask, bufr): 
     for n in range(np.shape(border_mask)[0]): #for the rows 
